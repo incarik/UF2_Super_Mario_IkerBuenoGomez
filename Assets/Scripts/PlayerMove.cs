@@ -6,10 +6,17 @@ public class PlayerMove : MonoBehaviour
 
 {
     public Vector3 newPosition = new Vector3(50, 5, 0);
-    public float movimentSpeed = 5;
+    public float movementSpeed = 5;
     private float inputHorizontal;
     public bool jump = false;
+    public Rigidbody2D rBody;
+    public float jumpForce = 5;
+    public GroundSensor sensor;
 
+    void Awake()
+    {
+        rBody = GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +28,10 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         inputHorizontal = Input.GetAxis("Horizontal");
-        //transform.position = transform.position + new Vector3(1, 0, 0) * movimentSpeed * Time.deltaTime;
-        transform.position += new Vector3(inputHorizontal, 0, 0) * movimentSpeed * Time.deltaTime;
+        //transform.position = transform.position + new Vector3(1, 0, 0) * movementSpeed * Time.deltaTime;
+        //transform.position += new Vector3(inputHorizontal, 0, 0) * movementSpeed * Time.deltaTime;
 
-        if(jump == true)
+       /* if(jump == true)
         {
             Debug.Log("estoy saltando");
         }
@@ -35,6 +42,18 @@ public class PlayerMove : MonoBehaviour
         else
         {
             Debug.Log("yooooo");
+        }*/
+        
+        if(Input.GetButtonDown("Jump") && sensor.isGrounded == true)
+        {
+               rBody.AddForce(new Vector2(0,1) * jumpForce, ForceMode2D.Impulse);   
         }
+        
+    }
+
+    void FixedUpdate()
+    {
+         rBody.velocity = new Vector2(inputHorizontal * movementSpeed, rBody.velocity.y);
     }
 }
+
