@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Goombas
+  - Coin
   layers:
   - Default
   - TransparentFX

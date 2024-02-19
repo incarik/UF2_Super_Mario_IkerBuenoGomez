@@ -78,6 +78,7 @@ public class PlayerMove : MonoBehaviour
     void FixedUpdate()
     {
          rBody.velocity = new Vector2(inputHorizontal * movementSpeed, rBody.velocity.y);
+        
     }
 }
 
